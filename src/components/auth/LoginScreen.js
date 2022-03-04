@@ -1,11 +1,17 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import validator from 'validator';
 import { useForm } from '../../hooks/useForm';
+import { setError, removeError } from '../../actions/ui';
 import { startGoogleLogin, startLoginEmailPassword } from '../../actions/auth';
 
 const LoginScreen = () => {
   const dispatch = useDispatch();
+
+  const { loading } = useSelector(state => state.ui);
+  const { msgError } = useSelector(state => state.ui);
+  const [checkError, setCheckError] = useState(false);
 
   const [formValues, handleInputChange] = useForm({ email: 'user@mail.com', password: '123456' });
 
@@ -13,19 +19,40 @@ const LoginScreen = () => {
 
   const handleLogin = e => {
     e.preventDefault();
-    dispatch(startLoginEmailPassword(email, password));
+
+    if (isFormValid()) {
+      dispatch(startLoginEmailPassword(email, password));
+    }
   };
 
   const handleGoogleLogin = () => {
     dispatch(startGoogleLogin());
   };
 
+  const isFormValid = () => {
+    if (!validator.isEmail(email)) {
+      dispatch(setError('Email is not valid'));
+      setCheckError(true);
+      return false;
+    } else if (validator.isEmpty(password)) {
+      dispatch(setError('Password is required'));
+      setCheckError(true);
+      return false;
+    } else {
+      dispatch(removeError());
+      return true;
+    }
+  };
+
   return (
     <div>
       <h3 className="auth__title">Login</h3>
       <form onSubmit={handleLogin} className="animate__animated animate__fadeIn animate__faster">
+        {msgError && (
+          <div className="auth__alert-error animate__animated animate__headShake">{msgError}</div>
+        )}
         <input
-          type="email"
+          type="text"
           placeholder="Email"
           name="email"
           autoComplete="off"
@@ -41,7 +68,7 @@ const LoginScreen = () => {
           value={password}
           onChange={handleInputChange}
         />
-        <button type="submit" className="btn btn-primary btn-block">
+        <button type="submit" className="btn btn-primary btn-block" disabled={loading}>
           Login
         </button>
 

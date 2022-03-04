@@ -8,6 +8,7 @@ import { useForm } from '../../hooks/useForm';
 
 const RegisterScreen = () => {
   const dispatch = useDispatch();
+  const { loading } = useSelector(state => state.ui);
   const { msgError } = useSelector(state => state.ui);
 
   const [checkError, setCheckError] = useState(false);
@@ -92,7 +93,7 @@ const RegisterScreen = () => {
           onChange={handleInputChange}
         />
 
-        <button type="submit" className="btn btn-primary btn-block mb-5">
+        <button type="submit" className="btn btn-primary btn-block mb-5" disabled={loading}>
           Register
         </button>
 
