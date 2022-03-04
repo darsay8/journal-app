@@ -6,6 +6,9 @@ import JournalScreen from '../components/journal/JournalScreen';
 import AuthRouter from './AuthRouter';
 import { login } from '../actions/auth';
 
+import { PrivateRoute } from './PrivateRoute';
+import { PublicRoute } from './PublicRoute';
+
 const AppRouter = () => {
   const dispatch = useDispatch();
 
@@ -34,8 +37,22 @@ const AppRouter = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/auth/*" element={<AuthRouter />} />
-        <Route path="/" element={<JournalScreen />} />
+        <Route
+          path="/auth/*"
+          element={
+            <PublicRoute isAuth={isLoggedIn}>
+              <AuthRouter />
+            </PublicRoute>
+          }
+        />
+        <Route
+          path="/"
+          element={
+            <PrivateRoute isAuth={isLoggedIn}>
+              <JournalScreen />
+            </PrivateRoute>
+          }
+        />
         <Route path="*" element={<Navigate replace to="/auth/" />} />
       </Routes>
     </BrowserRouter>
