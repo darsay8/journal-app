@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
@@ -8,15 +8,29 @@ import { login } from '../actions/auth';
 
 const AppRouter = () => {
   const dispatch = useDispatch();
+
+  const [checking, setChecking] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   useEffect(() => {
     const auth = getAuth();
 
     onAuthStateChanged(auth, user => {
       if (user?.uid) {
         dispatch(login(user.uid, user.displayName));
+        setIsLoggedIn(true);
+      } else {
+        setIsLoggedIn(false);
       }
+
+      setChecking(false);
     });
   }, []);
+
+  if (checking) {
+    return <h1>Loading...</h1>;
+  }
+
   return (
     <BrowserRouter>
       <Routes>
