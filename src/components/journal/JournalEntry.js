@@ -1,10 +1,22 @@
 import moment from 'moment';
+import { useDispatch } from 'react-redux';
+import { activeNote } from '../../actions/notes';
 
 const JournalEntry = ({ id, date, title, body, url }) => {
+  const dispatch = useDispatch();
   const noteDate = moment(date);
 
+  const note = { date, title, body, url };
+
+  const handleEntryClick = () => {
+    dispatch(activeNote(id, note));
+  };
+
   return (
-    <div className="journal__entry animate__animated animate__fadeIn animate__faster">
+    <div
+      className="journal__entry animate__animated animate__fadeIn animate__faster"
+      onClick={handleEntryClick}
+    >
       {url && (
         <div
           className="journal__entry-picture"
