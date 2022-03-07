@@ -52,9 +52,10 @@
   border-radius: 4px;
   color: $dark-grey;
   margin-bottom: 10px;
-  // overflow: hidden;
+  height: 5rem;
+  width: 20rem;
+  overflow: hidden;
   cursor: pointer;
-  height: 4rem;
 
   &-picture {
     height: 100%;
@@ -63,6 +64,7 @@
 
   &-body {
     padding: 10px;
+    width: 100%;
   }
 
   &-title {

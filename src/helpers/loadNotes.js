@@ -2,7 +2,8 @@ import { collection, query, getDocs } from 'firebase/firestore';
 import { db } from '../firebase/firebaseConfig';
 
 export const loadNotes = async uid => {
-  const notesSnap = await getDocs(query(collection(db, `${uid}/journal/notes`)));
+  const collRef = collection(db, `${uid}/journal/notes`);
+  const notesSnap = await getDocs(query(collRef));
 
   const notes = [];
 

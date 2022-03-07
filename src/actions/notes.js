@@ -5,25 +5,20 @@ import { types } from '../types/types';
 import { loadNotes } from '../helpers/loadNotes';
 import { fileUpload } from '../helpers/fileUpload';
 
-export const startNewNote = () => {
-  return async (dispatch, getState) => {
-    const { uid } = getState().auth;
+export const startNewNote = () => async (dispatch, getState) => {
+  const { uid } = getState().auth;
 
-    const newNote = {
-      title: '',
-      body: '',
-      date: new Date().getTime(),
-    };
-
-    try {
-      const docRef = await addDoc(collection(db, `${uid}/journal/notes`), newNote);
-
-      dispatch(activeNote(docRef.id, newNote));
-      dispatch(addNewNote(docRef.id, newNote));
-    } catch (e) {
-      console.log(e);
-    }
+  const newNote = {
+    title: '',
+    body: '',
+    date: new Date().getTime(),
   };
+
+  const collRef = collection(db, `${uid}/journal/notes`);
+  const docRef = await addDoc(collRef, newNote);
+
+  dispatch(activeNote(docRef.id, newNote));
+  dispatch(addNewNote(docRef.id, newNote));
 };
 
 export const activeNote = (id, note) => ({
@@ -55,13 +50,20 @@ export const setNotes = notes => ({
 export const startSaveNote = note => async (dispatch, getState) => {
   const { uid } = getState().auth;
 
+  if (!note.url) {
+    delete note.url;
+  }
+
   const noteToFirestore = { ...note };
   delete noteToFirestore.id;
   // const { id, ...noteData } = note;
 
   const docRef = doc(db, `${uid}/journal/notes/${note.id}`);
+
   await updateDoc(docRef, noteToFirestore);
+
   dispatch(refreshNote(note.id, noteToFirestore));
+
   Swal.fire('Saved', note.title, 'success');
 };
 
