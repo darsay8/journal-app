@@ -7,7 +7,7 @@ const JournalEntries = () => {
 
   return (
     <div className="journal__entries animate__animated animate__fadeIn animate__faster">
-      {notes.map(note => (
+      {notes?.map(note => (
         <JournalEntry key={note.id} {...note} />
       ))}
     </div>
