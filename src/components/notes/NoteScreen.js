@@ -23,7 +23,7 @@ const NoteScreen = () => {
 
   useEffect(() => {
     dispatch(activeNote(formValues.id, { ...formValues }));
-  }, [formValues]);
+  }, [formValues, dispatch]);
 
   const handleDelete = () => {
     dispatch(startDeleting(id));

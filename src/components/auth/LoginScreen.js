@@ -1,4 +1,4 @@
-import { useState } from 'react';
+// import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import validator from 'validator';
@@ -11,7 +11,7 @@ const LoginScreen = () => {
 
   const { loading } = useSelector(state => state.ui);
   const { msgError } = useSelector(state => state.ui);
-  const [checkError, setCheckError] = useState(false);
+  // const [checkError, setCheckError] = useState(false);
 
   const [formValues, handleInputChange] = useForm({ email: 'user@mail.com', password: '123456' });
 
@@ -32,11 +32,11 @@ const LoginScreen = () => {
   const isFormValid = () => {
     if (!validator.isEmail(email)) {
       dispatch(setError('Email is not valid'));
-      setCheckError(true);
+      // setCheckError(true);
       return false;
     } else if (validator.isEmpty(password)) {
       dispatch(setError('Password is required'));
-      setCheckError(true);
+      // setCheckError(true);
       return false;
     } else {
       dispatch(removeError());
