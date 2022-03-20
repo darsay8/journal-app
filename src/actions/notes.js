@@ -1,6 +1,6 @@
 import Swal from 'sweetalert2';
 import { db } from '../firebase/firebaseConfig';
-import { collection, doc, addDoc, updateDoc, deleteDoc } from 'firebase/firestore';
+import { collection, doc, addDoc, updateDoc, deleteDoc } from '@firebase/firestore';
 import { types } from '../types/types';
 import { loadNotes } from '../helpers/loadNotes';
 import { fileUpload } from '../helpers/fileUpload';

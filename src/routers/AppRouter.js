@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { getAuth, onAuthStateChanged } from '@firebase/auth';
 import JournalScreen from '../components/journal/JournalScreen';
 import AuthRouter from './AuthRouter';
 import { login } from '../actions/auth';

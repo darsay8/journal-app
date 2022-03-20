@@ -5,7 +5,7 @@ import {
   createUserWithEmailAndPassword,
   updateProfile,
   signOut,
-} from 'firebase/auth';
+} from '@firebase/auth';
 import Swal from 'sweetalert2';
 import { googleAuthProvider } from '../firebase/firebaseConfig';
 import { types } from '../types/types';

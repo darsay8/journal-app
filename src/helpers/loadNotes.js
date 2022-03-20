@@ -1,4 +1,4 @@
-import { collection, query, getDocs } from 'firebase/firestore';
+import { collection, query, getDocs } from '@firebase/firestore';
 import { db } from '../firebase/firebaseConfig';
 
 export const loadNotes = async uid => {
