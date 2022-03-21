@@ -14,11 +14,14 @@ export const startNewNote = () => async (dispatch, getState) => {
     date: new Date().getTime(),
   };
 
-  const collRef = collection(db, `${uid}/journal/notes`);
-  const docRef = await addDoc(collRef, newNote);
-
-  dispatch(activeNote(docRef.id, newNote));
-  dispatch(addNewNote(docRef.id, newNote));
+  try {
+    const collRef = collection(db, `${uid}/journal/notes`);
+    const docRef = await addDoc(collRef, newNote);
+    dispatch(activeNote(docRef.id, newNote));
+    dispatch(addNewNote(docRef.id, newNote));
+  } catch (e) {
+    console.log('Error: ', e);
+  }
 };
 
 export const activeNote = (id, note) => ({
