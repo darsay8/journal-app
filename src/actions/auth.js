@@ -53,7 +53,7 @@ export const startGoogleLogin = () => {
         dispatch(login(user.uid, user.displayName));
       })
       .catch(e => {
-        console.log('Error: ', e);
+        // console.log('Error: ', e);
       });
   };
 };

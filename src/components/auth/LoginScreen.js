@@ -26,6 +26,7 @@ const LoginScreen = () => {
   };
 
   const handleGoogleLogin = () => {
+    // console.log('hey');
     dispatch(startGoogleLogin());
   };
 
