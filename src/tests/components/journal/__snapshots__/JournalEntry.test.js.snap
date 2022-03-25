@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<JournalEntry/> Test should match with snapshot 1`] = `
+<div
+  className="journal__entry animate__animated animate__fadeIn animate__faster"
+  onClick={[Function]}
+>
+  <div
+    className="journal__entry-body"
+  >
+    <p
+      className="journal__entry-title"
+    />
+    <p
+      className="journal__entry-content"
+    />
+  </div>
+  <div
+    className="journal__entry-date-box"
+  >
+    <span>
+      Friday
+    </span>
+    <h4>
+      25th
+    </h4>
+  </div>
+</div>
+`;
